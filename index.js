@@ -16,9 +16,70 @@ app.use("/foods/dairies",dairysRoute)
 app.use("/foods/meats",meatsRoute)
 app.use('/foods/recipes',recipesRoute)
 
-app.get('/',(req,res)=>{
-    res.status(200).send({"msg":"Home Page"})
-})
+app.get("/", (req, res) => {
+    const apiInstructions = `
+    Backend api instruction:
+    FOODS=>
+      dairy->
+        URL={BASEURL}/foods/dairies+{endpoint}
+        endpoints=>
+          1."/add"->It is a post request for create dairy documents
+          2."/"->It is a get request for get all dairy documents
+          3."/update/:Id" -> It is a patch request for update particular dairy documents.
+          4."/delete/:Id" -> It is a delete request for delete particular dairy documents.
+  
+      fruits->
+        URL={BASEURL}/foods/fruits{endpoint}
+        endpoints=>
+          1."/add"->It is a post request for create fruits documents
+          2."/"->It is a get request for get all fruits documents
+          3."/update/:Id" -> It is a patch request for update particular fruits documents.
+          4."/delete/:Id" -> It is a delete request for delete particular fruits documents.
+  
+      vegetables->
+        URL={BASEURL}/foods/vegetables{endpoint}
+        endpoints=>
+          1."/add"->It is a post request for create vegetables documents
+          2."/"->It is a get request for get all vegetables documents
+          3."/update/:Id" -> It is a patch request for update particular vegetables documents.
+          4."/delete/:Id" -> It is a delete request for delete particular vegetables documents.
+  
+      meats->
+        URL={BASEURL}/foods/meats{endpoint}
+        endpoints=>
+          1."/add"->It is a post request for create meats documents
+          2."/"->It is a get request for get all meats documents
+          3."/update/:Id" -> It is a patch request for update particular meats documents.
+          4."/delete/:Id" -> It is a delete request for delete particular meats documents.
+  
+      recipes->
+        URL={BASEURL}/foods/recipes{endpoint}
+        endpoints=>
+          1."/add"->It is a post request for create recipes documents
+          2."/"->It is a get request for get all recipes documents
+          3."/update/:Id" -> It is a patch request for update particular recipes documents.
+          4."/delete/:Id" -> It is a delete request for delete particular recipes documents.
+  
+  FILTER=>
+      URL={BASEURL}/foods/fruits{endpoint}?{query is data object,s key & value }
+      Example:http://localhost:8080/foods/fruits?kcal=69&vita=0.8
+  
+  SORT=>
+      URL={BASEURL}/foods/fruits{endpoint}?sortBy={dataObj key}&sortOrder={asc/desc}
+      Example:http://localhost:8080/foods/fruits?sortBy=kcal&sortOrder=desc
+  
+  pagination=>
+      URL={BASEURL}/foods/fruits{endpoint}?page={page no}&limit={limit of products}
+      Example:http://localhost:8080/foods/fruits?page=2&limit=10
+  
+  It also provides total products, required page, page no.
+  
+  Example: http://localhost:8080/foods/fruits??sortBy=kcal&sortOrder=desc&kcal=69&page=1&limit=1
+  [All filter,sort,pagination use at same time]`;
+  
+    res.send(apiInstructions);
+  });
+  
 app.listen(process.env.port,async()=>{
     try {
         await connection
